@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("postgresql://root:Tree2021@localhost:5432/imob?schema=public")
+}
+
+model Imovel{
+  id String @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  imageList String[]
+  preco String
+  estado String
+  cidade  String
+  bairro String
+  logradouro String
+  numero String
+  cep String?
+  tipo String
+  geral String
+  desc String 
+
+}
