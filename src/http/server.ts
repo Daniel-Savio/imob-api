@@ -7,6 +7,7 @@ import { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { PrismaClient } from "@prisma/client";
 import { sign } from "crypto";
+import imovelSchema from "../schemas/imovelSchema";
 
 const multipart = require('fastify-multipart')
 const cors = require('fastify-cors');
@@ -14,31 +15,12 @@ const cors = require('fastify-cors');
 const app = fastify()
 const prisma = new PrismaClient();
 
+//Fastify Client configuration
 app.register(cors, {
     origin: '*', // Permite qualquer origem
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
 });
-
 app.register(multipart)
-
-
-
-
-const imovelSchema = z.object({
-    imagens: z.array(z.string()),
-    preco: z
-        .string()
-        .regex(/^\d{1,3}(\.\d{3})*(,\d{2})?$/),
-    estado: z.string(),
-    cidade: z.string(),
-    bairro: z.string(),
-    logradouro: z.string(),
-    numero: z.string(),
-    cep: z.string().regex(/^\d{5}-\d{3}$/),
-    tipo: z.string(),
-    geral: z.string(),
-    desc: z.string()
-});
 
 const imagensSchema = z.array(z.string())
 
@@ -54,7 +36,7 @@ app.post("/upload", async (req, res) => {
                 new PutObjectCommand({
                     Bucket: "imob",
                     Key: imagem,
-                    ContentType: imagem.match(/\.\w+$/)?.at(0), // Pega a extensão do nome do arquivo
+                    ContentType: "image/" + imagem.match(/\.\w+$/)?.at(0), // Pega a extensão do nome do arquivo
                 }),
                 { expiresIn: 600 }
             );
