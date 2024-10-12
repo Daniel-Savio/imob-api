@@ -25,6 +25,7 @@ app.register(multipart)
 const imagensSchema = z.array(z.string())
 
 
+//Routes
 app.post("/upload", async (req, res) => {
 
     const imagens = imagensSchema.parse(req.body)
@@ -68,19 +69,23 @@ app.post("/imovel", async (req, res) => {
         res.status(200).send(`Imóvel em ${imovel.cidade} / ${imovel.estado} criado com sucesso!`)
     } catch (e) {
         res.status(500).send(`Erro ao escrever no Banco de Dados: \n ${e.message}`)
-        console.log(e.message)
         return
     }
 })
 
-
-
 app.get('/', async (req, res) => {
-    const command = new ListObjectsCommand({
-        "Bucket": "imob",
-    });
-    const response = await cloudflare.send(command);
-    return response
+    return prisma.imovel.findMany({ orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }] })
+})
+
+app.get('/:imovelId', async (req, res) => {
+    const { imovelId } = req.params;
+    return prisma.imovel.findUnique({ where: { id: imovelId } })
+})
+
+app.get("/getItems", async (req, res,) => {
+
+
+
 })
 
 app.listen({

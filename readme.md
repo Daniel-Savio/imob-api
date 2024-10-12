@@ -62,3 +62,9 @@ data:
 
 }
 ```
+
+ENDPOINT="https://bc775897bb7da823f6b5f68020045c66.r2.cloudflarestorage.com/imob"
+ACCESS_KEY_ID = "5c3c9993566c81638bcb9b789ba69b79"
+SECRET= "cb63fbe063f1fecfccadc5730c2b4e0975ae3b97a60598738eb5cd46463851b1"
+
+DATABASE_URL="postgresql://root:Tree2021@localhost:5432/imob?schema=public"
