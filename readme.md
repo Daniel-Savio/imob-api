@@ -6,7 +6,7 @@ Para iniciar a aplicação:`npm run dev`
 
 Para inicar o prisma studio:` npx prisma studio`
 
-Para migrar o database`npx prisma migrate`
+Para migrar o database `npx prisma migrate`
 
 Para alterar onde o nodeJs vai ler as variáveis de ambiente basta colocar o comando de run deste jeto:
 
@@ -62,6 +62,8 @@ data:
 
 }
 ```
+
+`user={ email:"eudps@gmail.com", password:"daniel#admin123"};`
 
 ENDPOINT="https://bc775897bb7da823f6b5f68020045c66.r2.cloudflarestorage.com/imob"
 ACCESS_KEY_ID = "5c3c9993566c81638bcb9b789ba69b79"

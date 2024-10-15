@@ -1,12 +1,10 @@
 import fastify from "fastify";
 
-import { GetObjectCommand, ListObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3" //Put é o upload de arquivo
+import { PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3" //Put é o upload de arquivo
 import { cloudflare } from "../utils/cloudFlare";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { z } from "zod";
-import { createId } from "@paralleldrive/cuid2";
 import { PrismaClient } from "@prisma/client";
-import { sign } from "crypto";
 import imovelSchema from "../schemas/imovelSchema";
 
 const multipart = require('fastify-multipart')
@@ -82,10 +80,20 @@ app.get('/:imovelId', async (req, res) => {
     return prisma.imovel.findUnique({ where: { id: imovelId } })
 })
 
-app.get("/getItems", async (req, res,) => {
+app.delete("/:imovelId", async (req, res,) => {
+    const { imovelId } = req.params;
+    const imovel = await prisma.imovel.findUnique({ where: { id: imovelId } })
+    const images = imovel?.imageList
 
+    images?.forEach(async (image) => {
+        console.log("Images to be deleted:  " + image)
+        const delteCommand = new DeleteObjectCommand({ Bucket: "imob", Key: image })
+        await cloudflare.send(delteCommand)
 
+    })
 
+    await prisma.imovel.delete({ where: { id: imovelId } })
+    return res.status(200).send("Imóvel deletado com sucesso")
 })
 
 app.listen({
