@@ -35,7 +35,7 @@ app.post("/upload", async (req, res) => {
                 new PutObjectCommand({
                     Bucket: "imob",
                     Key: imagem,
-                    ContentType: "image/" + imagem.match(/\.\w+$/)?.at(0), // Pega a extensão do nome do arquivo
+                    ContentType: "image/jpeg" //+ imagem.match(/\.\w+$/)?.at(0), // Pega a extensão do nome do arquivo
                 }),
                 { expiresIn: 600 }
             );
@@ -94,6 +94,10 @@ app.delete("/:imovelId", async (req, res,) => {
 
     await prisma.imovel.delete({ where: { id: imovelId } })
     return res.status(200).send("Imóvel deletado com sucesso")
+})
+
+app.put("/:imovelId", async (req, res) => {
+    console.log(req.body)
 })
 
 app.listen({
