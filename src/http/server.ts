@@ -6,6 +6,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { z } from "zod";
 import { PrismaClient } from "@prisma/client";
 import imovelSchema from "../schemas/imovelSchema";
+import { env } from "process";
 
 const multipart = require('fastify-multipart')
 const cors = require('fastify-cors');
@@ -102,7 +103,7 @@ app.put("/:imovelId", async (req, res) => {
 })
 
 app.listen({
-    port: 3030,
+    port: process.env.PORT ? Number(process.env.PORT) : 3030,
     host: "0.0.0.0"
 }).then(() => { console.log("listening on port 3030") });
 
