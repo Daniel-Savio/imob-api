@@ -105,6 +105,6 @@ app.put("/:imovelId", async (req, res) => {
 app.listen({
     port: process.env.PORT ? Number(process.env.PORT) : 3030,
     host: "0.0.0.0"
-}).then(() => { console.log("listening on port 3030") });
+}).then(() => { console.log("listening on port:" + process.env.PORT ? Number(process.env.PORT) : 3030,) });
 
 
