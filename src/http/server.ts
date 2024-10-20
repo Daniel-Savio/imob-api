@@ -53,6 +53,7 @@ app.post("/imovel", async (req, res) => {
             data: {
                 imageList: imovel.imagens,
                 preco: imovel.preco,
+                transaction: imovel.transaction,
                 bairro: imovel.bairro,
                 cep: imovel.cep,
                 cidade: imovel.cidade,
