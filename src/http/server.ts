@@ -53,8 +53,9 @@ app.post("/imovel", async (req, res) => {
         await prisma.imovel.create({
             data: {
                 imageList: imovel.imagens,
-                preco: imovel.preco,
                 transaction: imovel.transaction,
+                titulo: imovel.titulo,
+                preco: imovel.preco,
                 bairro: imovel.bairro,
                 cep: imovel.cep,
                 cidade: imovel.cidade,
@@ -66,7 +67,7 @@ app.post("/imovel", async (req, res) => {
                 tipo: imovel.tipo,
             }
         })
-        res.status(200).send(`Imóvel em ${imovel.cidade} / ${imovel.estado} criado com sucesso!`)
+        res.status(200).send(`Imóvel para ${imovel.transaction} em ${imovel.cidade} / ${imovel.estado} criado com sucesso!`)
     } catch (e) {
         res.status(500).send(`Erro ao escrever no Banco de Dados: \n ${e.message}`)
         return

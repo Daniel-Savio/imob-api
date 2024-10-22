@@ -15,6 +15,7 @@ model Imovel{
 
   imageList String[]
   transaction String @default("Venda")
+  titulo String?
   preco String
   estado String
   cidade  String
