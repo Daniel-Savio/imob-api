@@ -52,7 +52,7 @@ app.post("/imovel", async (req, res) => {
     try {
         await prisma.imovel.create({
             data: {
-                imageList: imovel.imagens,
+                imagens: imovel.imagens,
                 transaction: imovel.transaction,
                 titulo: imovel.titulo,
                 preco: imovel.preco,

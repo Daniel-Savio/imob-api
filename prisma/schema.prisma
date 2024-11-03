@@ -13,7 +13,7 @@ model Imovel{
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  imageList String[]
+  imagens String[]
   transaction String @default("Venda")
   titulo String?
   preco String
