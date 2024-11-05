@@ -15,7 +15,8 @@ const imovelSchema = z.object({
     cep: z.string().regex(/^\d{5}-\d{3}$/),
     tipo: z.string(),
     geral: z.string(),
-    desc: z.string()
+    desc: z.string(),
+    room: z.array(z.object({ nome: z.string(), area: z.string() })).optional()
 });
 
 export default imovelSchema

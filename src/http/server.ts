@@ -65,6 +65,9 @@ app.post("/imovel", async (req, res) => {
                 logradouro: imovel.logradouro,
                 numero: imovel.numero,
                 tipo: imovel.tipo,
+                room: imovel.room
+
+
             }
         })
         res.status(200).send(`Imóvel para ${imovel.transaction} em ${imovel.cidade} / ${imovel.estado} criado com sucesso!`)

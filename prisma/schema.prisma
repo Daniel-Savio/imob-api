@@ -26,5 +26,6 @@ model Imovel{
   tipo String
   geral String
   desc String 
+  room Json?
 
 }
