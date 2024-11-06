@@ -89,7 +89,7 @@ app.get('/:imovelId', async (req, res) => {
 app.delete("/:imovelId", async (req, res,) => {
     const { imovelId } = req.params;
     const imovel = await prisma.imovel.findUnique({ where: { id: imovelId } })
-    const images = imovel?.imageList
+    const images = imovel?.imagens
 
     images?.forEach(async (image) => {
         console.log("Images to be deleted:  " + image)
@@ -102,8 +102,26 @@ app.delete("/:imovelId", async (req, res,) => {
     return res.status(200).send("Imóvel deletado com sucesso")
 })
 
-app.put("/:imovelId", async (req, res) => {
-    console.log(req.body)
+
+app.post("/delete-image", async (req, res,) => {
+    const { image } = req.body;
+
+    const delteCommand = new DeleteObjectCommand({ Bucket: "imob", Key: image })
+    await cloudflare.send(delteCommand)
+
+    return res.status(200).send("Imagem deletada com sucesso")
+})
+
+
+
+
+app.put("/imovel", async (req, res) => {
+    const { id, ...imovelData } = await req.body
+    await prisma.imovel.update({
+        where: { id: id }, data: imovelData
+    })
+    return res.status(200).send("Imovel editado com sucesso")
+
 })
 
 app.listen({
